@@ -1,0 +1,54 @@
+use app;
+
+delimiter //
+
+create procedure getCusByID (in cusNum int)
+
+begin
+select*from customers where customerNumber = cusNum;
+end //
+
+delimiter ;
+
+drop procedure getCusByID;
+
+delimiter //
+
+create procedure getCusByID (in cusNum int)
+
+begin
+select*from customers where customerNumber = cusNum;
+end //
+
+delimiter ;
+
+call getCusByID(175);
+
+delimiter //
+
+create procedure GetCustomersCountByCity (in incity varchar(50), out total int)
+
+begin
+select count(customerNumber) into total from customers where city = incity;
+end //
+
+delimiter ;
+
+call GetCustomersCountByCity('Lyon',@total);
+select @total;
+
+delimiter //
+
+create procedure SetCounter (inout counter int, in inc int)
+
+begin
+ set counter = counter + inc;
+end //
+
+delimiter ;
+
+set @counter = 4;
+call SetCounter(@counter, 5);
+call SetCounter(@counter, 10);
+call SetCounter(@counter, 20);
+select @counter;
